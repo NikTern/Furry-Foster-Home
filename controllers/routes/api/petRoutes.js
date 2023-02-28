@@ -43,20 +43,27 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/:id', withAuth,async (res, req) => { 
-    const updatePet = await Pets.update({
+router.post('/:id', withAuth, async (res, req) => { 
+    try {
+        const updatePet = await Pets.update({
 
-        //TODO: MAY UPDATE THE COLUMNS NAME AFTER DB CREATED
-        adopted: true,
+            //TODO: MAY UPDATE THE COLUMNS NAME AFTER DB CREATED
+            adopted: true,
 
-        //TODO: CHECK WITH LOGIN POST REQUEST FOR SESSION PROPERTY NAME
-        adopter_id: req.session.user_id
-    },
-    {
-        where: {
-            id:res.params.id
-        }
-    })
+            //TODO: CHECK WITH LOGIN POST REQUEST FOR SESSION PROPERTY NAME
+            adopter_id: req.session.user_id
+        },
+        {
+            where: {
+                id:res.params.id
+            }
+            })
+        res.status(200).json(updatePet);
+        
+    } catch (err) { 
+        res.status(500).json(err);
+    }
+    
 })
 
 module.exports = router;
