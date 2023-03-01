@@ -11,18 +11,26 @@ Breed.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    
     breed_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    category_id: {
+        type: DataTypes.STRING,
+        references: {
+            model: 'category',
+            key: 'id',
+        }     
+      }
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'category'
+    modelName: 'breed'
   }
 );
 
-module.exports = Category;
+module.exports = Breed;
