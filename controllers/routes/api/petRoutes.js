@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
           where: {
               
               //TODO: MAY UPDATE THE COLUMN NAME AFTER DB CREATED
-              adopted: false
+              isAdopted: false
           }
       });
     res.json(petData);
@@ -59,7 +59,7 @@ router.post('/:id', withAuth, async (res, req) => {
             }
             })
         res.status(200).json(updatePet);
-        
+
     } catch (err) { 
         res.status(500).json(err);
     }

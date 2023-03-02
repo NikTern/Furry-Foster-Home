@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const withAuth = require('../../../utils/auth.js'); 
-const { User } =require('../../../models')
+const { User,Pets } =require('../../../models')
 
-router.get('/user/:id', withAuth,async (req, res) => { 
+router.get('/user/profile', withAuth,async (req, res) => { 
     try {
-        const userData = await User.findByPk(req.params.id);
+        const userData = await User.findByPk(req.session.user_id,{
+      attributes: { exclude: ['password'] },
+      include: [{ model: Pets }],
+    });
         res.status(200).json(userData);
 
     } catch (err) { 
@@ -12,16 +15,17 @@ router.get('/user/:id', withAuth,async (req, res) => {
     }
 })
 
-router.put('/user/:id/:param', withAuth,async (req,res) => { 
+router.put('/user/profile', withAuth,async (req,res) => { 
     try {
-        const userData = await User.update({
-            param: req.body.param
-        },
-        {
+        const userData = await User.update(req.body,{
             where: {
-                id: req.params.id,
+                id: req.session.user_id,
             }
-        });
+            });
+        if (!userData[0]) { 
+            res.status(404).json({ message: 'No user with this id!' });
+            return;
+        }
         res.status(200).json(userData);
 
     } catch (err) { 
