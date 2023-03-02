@@ -1,12 +1,13 @@
-const username = $('#username');
-const email = $('#email');
-const petsAdopted = $('#pets-adopted');
-const first_Name = $('#first-name');
-const last_Name = $('#last-name');
-const gender = $('#gender');
-const address = $('#address');
-const phone_number = $('#phone');
-const currentPets = $('#current-pets');
+const url = '/api/users/profile';
+const profileUsername = $('#username');
+const profileEmail = $('#email');
+const profilePetsAdopted = $('#pets-adopted');
+const profielFirstName = $('#first-name');
+const profileLastName = $('#last-name');
+const profileGender = $('#gender');
+const profileAddress = $('#address');
+const profilePhoneNumber = $('#phone');
+const profileCurrentPets = $('#current-pets');
 
 const profileModal = $('#exampleModal');
 const editFirstName = $('#edit-first-name');
@@ -20,8 +21,17 @@ const saveChangeBtn = $('#save-changes');
 
 
 const profilePageRender = async () => { 
-    const response = await fetch('/api/users/profile');
-    
+    const response = await fetch(url);
+    const userData = response.json();
+    const { username, email, first_name, last_name, gender, address, phone_number, currentPets } = userData;
+    profileUsername.val() = username;
+    profileEmail.val() = email;
+    profielFirstName.val() = first_name;
+    profileLastName.val() = last_name;
+    profileGender.val() = gender;
+    profileAddress.val() = address;
+    profilePhoneNumber.val() = phone_number;
+    profileCurrentPets.val() = currentPets;
 }
 
 
@@ -35,7 +45,7 @@ const editProfileHandler = async (event) => {
     const phone_number = editPhone.val().trim();
     const currentPets = editCurrentPets.val().trim();
 
-    const response = await fetch('/api/users/profile', {
+    const response = await fetch(url, {
         method: 'PUT',
         body: JSON.stringify({ first_name, last_name, gender, address, phone_number, currentPets }),
         headers: { 'Content-Type': 'application/json' },
@@ -44,11 +54,13 @@ const editProfileHandler = async (event) => {
     if (response.ok) {
       // If successful, hide the modal
         profileModal.modal('hide');
-        document.location.replace('/api/users/profile');
+        document.location.replace(url);
 
     } else {
       alert(response.statusText);
     }
 }
 
-saveChangeBtn.on('click',editProfileHandler)
+saveChangeBtn.on('click', editProfileHandler)
+
+profilePageRender();
