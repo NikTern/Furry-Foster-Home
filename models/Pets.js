@@ -14,12 +14,24 @@ Pets.init(
       autoIncrement: true,
     },
     //name or id?
-    breed_name: {
-      type: DataTypes.STRING,
+    breed_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'breed',
+        key: 'id',
+      }
     },
     //name or id?
-    category: {
+    category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'category',
+          key: 'id',
+        }
+      },
+      pet_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -40,7 +52,7 @@ Pets.init(
         type: DataTypes.STRING,
         allowNull: false,
       },
-      //what is the data type for a picture stored on cloud?
+     
       Picture: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -55,11 +67,17 @@ Pets.init(
       },
       isAdopted: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
         default: false,
       },
-      Adobted_by: {
+      // add reference to user id
+      Adopted_by: {
         type: DataTypes.INTEGER,
-        default: false,
+        allowNull: true,
+        references: {
+          model:'userProfile',
+          key: 'id',
+        }
       },
   },
   {
