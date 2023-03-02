@@ -52,7 +52,12 @@ UserProfile.init(
       // need to link this to pet that has been adopted.Get pet Id?
       adopted_pet: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
+        references: {
+          model: 'pets',
+          key: 'id',
+        }
+        
       }
   },
   {
