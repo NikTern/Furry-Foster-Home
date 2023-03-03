@@ -1,7 +1,7 @@
-//Grab necessary HTML elements to generate cards
+//Grab necessary HTML elements to append cards to
 const petsBox = document.querySelector(".pets")
-
-//Code which generates the pets by making a get request 
+ 
+//Code which generates the pets using data from a get request
 fetch('/api/pets', {
 method: 'GET'
 })
@@ -9,26 +9,28 @@ method: 'GET'
 .then((data) => {
     console.log('Successful GET request:', data);
 
-    //create cards here
+    //create cards (<a> tags) here
     for(var i=0; i < data.length; i++){
         let card = document.createElement('a')
         card.classList.add('pet-card')
-        
+        //add pet id to each <a> tag 
+        card.id = data[i].id
+
+        //set url path for each <a> tag to have an id corresponding to the database for the other html page to grab
+        card.setAttribute("href", `./petdetails.html?cardId=${card.id}`)
+
         //generate pet image
         let petImage = document.createElement('img')
-            // SET SRC LINK TO BE AMAZON LINK (which will be an object property? data[i].imglink?)
-        petImage.setAttribute("src", "./assets/cutecat.png")
+        petImage.setAttribute("src", "./assets/cutecat.png") // SET SRC LINK TO BE AMAZON LINK (which will be an object property? data[i].imglink?)
 
+        //generate pet name
         let petName = document.createElement('p')
         petName.textContent(data[i].petname) //need to use correct property
     }
 
     card.appendChild(petImage)
     card.appendChild(petName)
-
     petsBox.appendChild(card)
-
-    // return data;
 })
 .catch((error) => {
     console.error('Error in GET request:', error);

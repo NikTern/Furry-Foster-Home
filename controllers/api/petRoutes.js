@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Pets,Category,Breed } = require('../../models');
 const withAuth = require('../../utils/auth.js');
 
+
 router.get('/', async (req, res) => {
   try {
       const petData = await Pets.findAll({
@@ -65,5 +66,26 @@ router.post('/:id', withAuth, async (res, req) => {
     }
     
 })
+
+
+router.get("/category/:id", async (req, res) => {
+  try {
+    const petData = await Pets.findAll({
+      where: {
+        category_id: req.params.id,
+        isAdopted: false
+      }
+    });
+
+    if (!petData) {
+      res.status(404).json({ message: "No pet found with this category id!" });
+      return;
+    }
+
+    res.status(200).json(petData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
