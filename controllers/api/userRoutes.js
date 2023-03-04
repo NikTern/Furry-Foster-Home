@@ -3,7 +3,7 @@ const withAuth = require('../../utils/auth.js');
 const { User, Pets } = require('../../models');
 const bcrypt = require('bcrypt');
 
-router.post('/user/register', async (req, res) => { 
+router.post('/register', async (req, res) => { 
     try {
         const newUser = req.body;
         const hasUser = await User.findOne(
@@ -26,7 +26,7 @@ router.post('/user/register', async (req, res) => {
     } 
 })
 
-router.post('/user/login', async (req, res) => { 
+router.post('/login', async (req, res) => { 
     try {
         const userData = await User.findOne({
           where: { email: req.body.email },
@@ -56,7 +56,7 @@ router.post('/user/login', async (req, res) => {
       }
 })
 
-router.get('/user/profile', withAuth,async (req, res) => { 
+router.get('/profile', withAuth,async (req, res) => { 
     try {
         const userData = await User.findByPk(req.session.user_id,{
       attributes: { exclude: ['password'] },
@@ -69,7 +69,7 @@ router.get('/user/profile', withAuth,async (req, res) => {
     }
 })
 
-router.put('/user/profile', withAuth,async (req,res) => { 
+router.put('/profile', withAuth,async (req,res) => { 
     try {
         const userData = await User.update(req.body,{
             where: {
