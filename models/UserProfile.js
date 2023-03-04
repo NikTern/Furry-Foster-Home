@@ -49,16 +49,8 @@ UserProfile.init(
         type: DataTypes.STRING,
         allowNull: false
       },
-      // need to link this to pet that has been adopted.Get pet Id?
-      adopted_pet: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'pets',
-          key: 'id',
-        }
-        
-      }
+      
+
   },
   {
     sequelize,
