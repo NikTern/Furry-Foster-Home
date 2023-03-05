@@ -17,7 +17,7 @@ method: 'GET'
         card.id = data[i].id
 
         //set url path for each <a> tag to have an id corresponding to the database for the other html page to grab
-        card.setAttribute("href", `./petdetails.html?cardId=${card.id}`)
+        // card.setAttribute("href", `./petdetails.html?cardId=${card.id}`)
 
         //generate pet image
         let petImage = document.createElement('img')
@@ -35,14 +35,6 @@ method: 'GET'
 .catch((error) => {
     console.error('Error in GET request:', error);
 });
-
-
-//Grab necessary HTML elements to generate pet categories
-    //
-
-//Code which generates pet categories by making a get request
-    //
-
 
 // code for searchbar to bring up individual pets based on searched term (UNFINISHED)
     // const searchpet = document.querySelector('#searchpet');
