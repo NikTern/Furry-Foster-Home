@@ -15,7 +15,7 @@ const loginFormHandler = async (event) => {
 
   if (email && password) {
 	// Send a POST request to the API endpoint
-	const response = await fetch('/api/users/login', {
+	const response = await fetch('api/users/login', {
   	method: 'POST',
   	body: JSON.stringify({ email, password }),
   	headers: { 'Content-Type': 'application/json' },
@@ -45,7 +45,7 @@ const signupFormHandler = async (event) => {
   }
 
   if (firstName && surname && mobile && email && password && pwRetype) {
-	const response = await fetch('/api/users', {
+	const response = await fetch('api/users/register', {
   	method: 'POST',
   	body: JSON.stringify({ name, email, password }),
   	headers: { 'Content-Type': 'application/json' },

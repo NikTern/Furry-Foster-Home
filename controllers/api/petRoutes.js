@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
       include: [
         {
           model: Category,
-          attributes: ['category'],
+          attributes: ['category_name'],
         },
         {
           model: Breed,
@@ -44,21 +44,22 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/:id', withAuth, async (res, req) => { 
+router.put('/:id', withAuth, async (res, req) => { 
     try {
-        const updatePet = await Pets.update({
-
+        const updatePet = await Pets.update(
+          {
             //TODO: MAY UPDATE THE COLUMNS NAME AFTER DB CREATED
-            adopted: true,
+            isAdopted: true,
 
             //TODO: CHECK WITH LOGIN POST REQUEST FOR SESSION PROPERTY NAME
-            adopter_id: req.session.user_id
-        },
-        {
+            Adopted_by: req.session.user_id,
+          },
+          {
             where: {
-                id:res.params.id
-            }
-            })
+              id: res.params.id,
+            },
+          }
+        );
         res.status(200).json(updatePet);
 
     } catch (err) { 

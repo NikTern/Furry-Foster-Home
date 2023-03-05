@@ -1,19 +1,18 @@
-const router = require('express').Router();
+const path = require("path");
+const router = require("express").Router();
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-      const petData = await Pets.findAll({
-          where: {
-              
-              //TODO: MAY UPDATE THE COLUMN NAME AFTER DB CREATED
-              isAdopted: false
-          }
-      });
+    const petData = await Pets.findAll({
+      where: {
+        //TODO: MAY UPDATE THE COLUMN NAME AFTER DB CREATED
+        isAdopted: false,
+      },
+    });
     res.json(petData);
-} catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
-
 
 module.exports = router;
