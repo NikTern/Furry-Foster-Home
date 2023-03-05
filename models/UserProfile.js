@@ -1,9 +1,14 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const bcrypt = require("bcrypt");
+
 
 // create our userProfile model
-class UserProfile extends Model {}
-
+class UserProfile extends Model {
+ checkPassword(loginPw) {
+  return bcrypt.compareSync(loginPw, this.password);
+ }
+}
 // create fields/columns for userProfile model
 UserProfile.init(
   {
@@ -20,35 +25,35 @@ UserProfile.init(
     last_name: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      gender: {
+    },
+    gender: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      address: {
+    },
+    address: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      currentPets: {
+    },
+    currentPets: {
         type: DataTypes.INTEGER,
         allowNull: false
-      },
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
         isEmail: true
-      }
+       }
     },
     phone_number: {
         type: DataTypes.INTEGER,
         allowNull: false
-      },
+    },
       password: {
         type: DataTypes.STRING,
         allowNull: false
-      },
+    },
       
 
   },
