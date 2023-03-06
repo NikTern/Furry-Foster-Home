@@ -8,7 +8,7 @@ const { time } = require("console");
 router.get("/login", (req, res) => {
   try {
     if (req.session.logged_in) {
-      res.redirect("/profile");
+      res.redirect("/");
       return;
     }
     res.sendFile(path.join(__dirname, "../../public/html/login.html"));
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
 router.get("/register", (req, res) => {
   try {
     if (req.session.logged_in) {
-      res.redirect("/profile");
+      res.redirect("/");
       return;
     }
     res.sendFile(path.join(__dirname, "../../public/html/signup.html"));
@@ -94,14 +94,7 @@ router.get("/", async (req, res) => {
 });
 
 
-router.get("/:id", async (req, res) => {
-  try {
-    const userData = await UserProfile.findByPk(req.params.id);
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
 
 router.get("/profile", withAuth, async (req, res) => {
   try {
@@ -126,6 +119,22 @@ router.put("/profile", withAuth, async (req, res) => {
       res.status(404).json({ message: "No user with this id!" });
       return;
     }
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/status', (req, res) => { 
+  console.log('====================');
+  console.log(req.session);
+  console.log("====================");
+    res.json(req.session);
+})
+
+router.get("/:id", async (req, res) => {
+  try {
+    const userData = await UserProfile.findByPk(req.params.id);
     res.status(200).json(userData);
   } catch (err) {
     res.status(500).json(err);

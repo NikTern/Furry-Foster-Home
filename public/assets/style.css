@@ -35,7 +35,7 @@ nav {
     padding-bottom: 2%;
 }
 
-.nav-links a {
+/* .nav-links a {
     padding: 0.5% 1%;
     margin-right: 1%;
     border-radius: 6px;
@@ -45,12 +45,12 @@ nav {
     background-color: rgb(6, 69, 111);
     text-decoration: none;
     font-size: small;
-}
+} */
 
-.nav-links a:hover,
+/* .nav-links a:hover,
 .nav-links a:focus {
     background-color: #4085d5;
-}
+} */
 
 /* nav searchbar */
 .searchpet {
@@ -330,7 +330,7 @@ nav {
      padding-bottom: 2%;
  }
 
- .nav-links a {
+ .nav-btn {
      padding: 0.5% 1%;
      margin-right: 1%;
      border-radius: 6px;
@@ -342,10 +342,10 @@ nav {
      font-size: small;
  }
 
- .nav-links a:hover,
+ /* .nav-links a:hover,
  .nav-links a:focus {
      background-color: #4085d5;
- }
+ } */
 
  /* nav searchbar */
  .searchpet {
@@ -434,3 +434,12 @@ nav {
      font-size: large;
      align-self: end;
  }
+
+#user{
+    color: black;
+    text-decoration: none;
+}
+
+#user:hover{
+    text-decoration: none;
+}

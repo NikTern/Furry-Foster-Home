@@ -1,12 +1,20 @@
 const viewAllBtn = $('#view-all-btn');
 const mainContainer = document.querySelector('.main-container');
 const petDiv = $('.pets');
-const profile = $('#profile');
+const user = document.querySelector('#user');
 const loginBtn = $('#login-btn');
 const signupBtn = $('#signup-btn');
 
 const homePageRender = async () => { 
-    
+    const session = await fetch('/api/users/status');
+    const sessionData = await session.json();
+    console.log(sessionData);
+    if (sessionData.logged_in) { 
+        loginBtn.hide();
+        signupBtn.hide();
+        console.log(sessionData.user_email);
+        user.textContent = `Hello, ${sessionData.user_email}`;
+    }
 }
 
 const profilePageRender = async () => { 
@@ -173,4 +181,6 @@ const profilePageRender = async () => {
 }
 
 
-profile.on('click',profilePageRender)
+// profile.on('click', profilePageRender);
+
+homePageRender();

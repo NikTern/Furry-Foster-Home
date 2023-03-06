@@ -9,7 +9,7 @@ categoryCards = document.querySelectorAll(".category-card")
 categoryCards.forEach(categoryCard => {
   categoryCard.addEventListener('click', function(event){
     event.preventDefault()
-    fetch('http://localhost:3001/api/pets', {
+    fetch('/api/pets', {
         method: 'GET',
         })
         .then((res) => res.json())
@@ -65,7 +65,7 @@ categoryCards.forEach(categoryCard => {
 //Function to generate details for a single pet using data from a get request
 //(used as an event listener added to generated pet cards to make them clickable)
 function fetchPetData(id) {
-    fetch(`http://localhost:3001/api/pets/${id}`, {
+    fetch(`/api/pets/${id}`, {
         method: 'GET'
     })
     .then((res) => res.json())
@@ -150,7 +150,7 @@ const viewAll = document.querySelector("#view-all-btn")
 
 viewAll.addEventListener('click', function(event){
     event.preventDefault()
-    fetch('http://localhost:3001/api/pets/', {
+    fetch('/api/pets/', {
         method: 'GET'
         })
         .then((res) => res.json())
