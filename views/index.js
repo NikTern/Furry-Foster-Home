@@ -16,8 +16,10 @@ categoryCards.forEach(categoryCard => {
         .then((data) => {
             console.log('Successful GET request:', data);
   
-            //hide the categories div
+            //hide the categories div and view all pets div
             categoriesDiv.setAttribute("style", "display: none")
+            var viewAll = document.querySelector("#view-all")
+            viewAll.setAttribute("style", "display: none")
   
             //delete any existing content in the content page
             for(var j=0; j < content.length; j++){
@@ -28,7 +30,7 @@ categoryCards.forEach(categoryCard => {
   
             //create pet cards (<a> tags) here
             for(var i=0; i < data.length; i++){
-              if(data.breed_name === categoryCard.dataset.id){
+              if(data[i].category_id == categoryCard.dataset.id){
                 let card = document.createElement('a')
                 card.classList.add('pet-card')
        
@@ -72,8 +74,10 @@ function fetchPetData(id) {
     .then((data) => {
       console.log('Successful GET request:', data);
   
-      // hide the categories div
-      categoriesDiv.setAttribute("style", "display: none");
+      //hide the categories div and view all pets div
+      categoriesDiv.setAttribute("style", "display: none")
+      var viewAll = document.querySelector("#view-all")
+      viewAll.setAttribute("style", "display: none")
   
       // delete any existing content in the content page
       while (content.firstChild) {
@@ -85,11 +89,12 @@ function fetchPetData(id) {
       //pet image
       let petImage = document.createElement('img')
       petImage.setAttribute("src", `${data.Picture}`) // SET SRC LINK TO BE AMAZON LINK (which will be an object property? data[i].imglink?)
-  
+      
+
       //pet name 
       let petName = document.createElement('h2')
       petName.textContent = data.pet_name //need to use correct property
-  
+
       //pet details        
       let petAge = document.createElement('p')
       petAge.textContent = data.Age
@@ -98,7 +103,7 @@ function fetchPetData(id) {
       petDescription.textContent = data.Description
   
       let petBreed = document.createElement('p')
-      petBreed.textContent = data.breed_name 
+      petBreed.textContent = data.breed_name
   
       let petCategory = document.createElement('p')
       petCategory.textContent = data.category_name
@@ -138,7 +143,10 @@ function fetchPetData(id) {
     })
     .catch((error) => {
       console.error('Error in GET request:', error);
-    });        
+    });
+    
+    //create back button
+            
   }
 
 //'View All Pets' button - Generate cards for all the pets using data from a get request
@@ -146,16 +154,17 @@ const viewAll = document.querySelector("#view-all-btn")
 
 viewAll.addEventListener('click', function(event){
     event.preventDefault()
-    fetch('http://localhost:3001/api/pets', {
-        method: 'GET',
-        mode: 'cors'
+    fetch('http://localhost:3001/api/pets/', {
+        method: 'GET'
         })
         .then((res) => res.json())
         .then((data) => {
             console.log('Successful GET request:', data);
 
-            //hide the categories div
+            //hide the categories div and view all pets div
             categoriesDiv.setAttribute("style", "display: none")
+            var viewAll = document.querySelector("#view-all")
+            viewAll.setAttribute("style", "display: none")
 
             //delete any existing content in the content page
             for(var j=0; j < content.length; j++){
@@ -178,7 +187,7 @@ viewAll.addEventListener('click', function(event){
                 petName.textContent = data[i].pet_name
                 
                 //add pet id to each <a> tag 
-                card.setAttribute('data-id', `data[i].id`)
+                card.setAttribute('data-id', `${data[i].id}`)
 
                 //add event listener to clear content and generate individual pet details
                 card.addEventListener("click", () => {
@@ -191,6 +200,9 @@ viewAll.addEventListener('click', function(event){
                 card.appendChild(petName)
                 content.appendChild(card)
               }
+            
+            //create back button
+
         })
         .catch((error) => {
             console.error('Error in GET request:', error);
@@ -214,3 +226,9 @@ viewAll.addEventListener('click', function(event){
     //       // ...
     //     });
     // });
+
+
+// //Code which fixes CORS error
+// const cors = require('cors');
+// router.use(cors());
+// //

@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { Pets,Category,Breed } = require('../../models');
 const withAuth = require('../../utils/auth.js');
 
+//Code which fixes CORS error
+const cors = require('cors');
+router.use(cors());
+//
 
 router.get('/', async (req, res) => {
   try {
