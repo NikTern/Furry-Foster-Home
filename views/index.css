@@ -108,6 +108,11 @@ nav {
     background-color: #4085d5;
 }
 
+/* default div */
+.default-cards{
+    justify-content: space-between;
+}
+
 /* pet cards */
 .pets {
     width: 100%;
@@ -144,12 +149,13 @@ nav {
     opacity: 0.7;
 }
 
- .category-card:hover {
-     transition: 0.3s;
-     opacity: 1;
+.category-card:hover {
+    transition: 0.3s;
+    opacity: 1;
     text-decoration: none;
- }
+}
 
- #view-all{
+#view-all{
     text-align: center;
- }
+    margin-bottom: 2%;
+}

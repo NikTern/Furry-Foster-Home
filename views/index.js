@@ -4,10 +4,66 @@ const content = document.querySelector(".content") // content gets generated and
  
 
 //Generate cards for a specific pet category using data from a get request
+categoryCards = document.querySelectorAll(".category-card")
 
+categoryCards.forEach(categoryCard => {
+  categoryCard.addEventListener('click', function(event){
+    event.preventDefault()
+    fetch('http://localhost:3001/api/pets', {
+        method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log('Successful GET request:', data);
+  
+            //hide the categories div
+            categoriesDiv.setAttribute("style", "display: none")
+  
+            //delete any existing content in the content page
+            for(var j=0; j < content.length; j++){
+                content.removeChild(content.firstChild)
+            }
+  
+            //**generate html based off retrieved data**//
+  
+            //create pet cards (<a> tags) here
+            for(var i=0; i < data.length; i++){
+              if(data.breed_name === categoryCard.dataset.id){
+                let card = document.createElement('a')
+                card.classList.add('pet-card')
+       
+                //generate pet image
+                let petImage = document.createElement('img')
+                petImage.setAttribute("src", `${data[i].Picture}`)
+        
+                //generate pet name
+                let petName = document.createElement('p')
+                petName.textContent = data[i].pet_name
+                
+                //add pet id to each <a> tag 
+                card.setAttribute('data-id', `${data[i].id}`)
+  
+                //add event listener to clear content and generate individual pet details
+                card.addEventListener("click", () => {
+                  let petId = card.dataset.id
+                  fetchPetData(petId)
+                })
+                
+                //append newly generated html elements to the webpage
+                card.appendChild(petImage)
+                card.appendChild(petName)
+                content.appendChild(card)
+              }
+            }
+        })
+        .catch((error) => {
+            console.error('Error in GET request:', error);
+        });        
+    })
+  })
 
-
-//Function to generate details for a single pet using data from a get request (add to pet cards in event listener)
+//Function to generate details for a single pet using data from a get request
+//(used as an event listener added to generated pet cards to make them clickable)
 function fetchPetData(id) {
     fetch(`http://localhost:3001/api/pets/${id}`, {
         method: 'GET'
