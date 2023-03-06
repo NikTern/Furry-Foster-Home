@@ -102,13 +102,13 @@ function fetchPetData(id) {
 
       //pet details        
       let petAge = document.createElement('p')
-      petAge.textContent = data.Age
+      petAge.textContent = `Age: ${data.Age}`
   
       let petDescription = document.createElement('p')
       petDescription.textContent = data.Description
   
       let petBreed = document.createElement('p')
-      petBreed.textContent = `breed: ${data.breed.breed_name}`
+      petBreed.textContent = `Breed: ${data.breed.breed_name}`
   
       let petCategory = document.createElement('p')
       petCategory.textContent = data.category_name
