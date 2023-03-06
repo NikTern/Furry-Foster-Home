@@ -1,3 +1,10 @@
+//Home button
+const homeBtn = document.querySelector(".home-btn")
+
+homeBtn.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
 //Grab necessary HTML elements
 const categoriesDiv = document.querySelector(".categories") // to hide and unhide
 const content = document.querySelector(".content") // content gets generated and deleted here
@@ -21,11 +28,9 @@ categoryCards.forEach(categoryCard => {
             var viewAll = document.querySelector("#view-all")
             viewAll.setAttribute("style", "display: none")
   
-            //delete any existing content in the content page
-            for(var j=0; j < content.length; j++){
-                content.removeChild(content.firstChild)
+            while (content.firstChild) {
+              content.removeChild(content.firstChild);
             }
-  
             //**generate html based off retrieved data**//
   
             //create pet cards (<a> tags) here
@@ -166,9 +171,8 @@ viewAll.addEventListener('click', function(event){
             var viewAll = document.querySelector("#view-all")
             viewAll.setAttribute("style", "display: none")
 
-            //delete any existing content in the content page
-            for(var j=0; j < content.length; j++){
-                content.removeChild(content.firstChild)
+            while (content.firstChild) {
+              content.removeChild(content.firstChild);
             }
 
             //**generate html based off retrieved data**//
