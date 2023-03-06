@@ -1,3 +1,10 @@
+//Home button
+const homeBtn = document.querySelector(".home-btn")
+
+homeBtn.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
 //Grab necessary HTML elements
 const categoriesDiv = document.querySelector(".categories") // to hide and unhide
 const content = document.querySelector(".content") // content gets generated and deleted here
@@ -21,11 +28,9 @@ categoryCards.forEach(categoryCard => {
             var viewAll = document.querySelector("#view-all")
             viewAll.setAttribute("style", "display: none")
   
-            //delete any existing content in the content page
-            for(var j=0; j < content.length; j++){
-                content.removeChild(content.firstChild)
+            while (content.firstChild) {
+              content.removeChild(content.firstChild);
             }
-  
             //**generate html based off retrieved data**//
   
             //create pet cards (<a> tags) here
@@ -37,13 +42,16 @@ categoryCards.forEach(categoryCard => {
                 //generate pet image
                 let petImage = document.createElement('img')
                 petImage.setAttribute("src", `${data[i].Picture}`)
+                petImage.setAttribute('style', 'width: 100%; border-radius: 20px;');
         
                 //generate pet name
                 let petName = document.createElement('p')
                 petName.textContent = data[i].pet_name
+                petName.setAttribute('style', 'font-weight: bold; font-size: x-large; align-self: end;')
                 
                 //add pet id to each <a> tag 
                 card.setAttribute('data-id', `${data[i].id}`)
+                card.setAttribute('style', 'width: 30%; height: auto; margin-left: 2.5%; margin-right: 2.5%; margin-bottom: 5%; display: flex; flex-wrap: wrap; align-items: center; text-decoration: none;');
   
                 //add event listener to clear content and generate individual pet details
                 card.addEventListener("click", () => {
@@ -103,7 +111,7 @@ function fetchPetData(id) {
       petDescription.textContent = data.Description
   
       let petBreed = document.createElement('p')
-      petBreed.textContent = `breed: ${data.breed_name}`
+      petBreed.textContent = `breed: ${data.breed.breed_name}`
   
       let petCategory = document.createElement('p')
       petCategory.textContent = data.category_name
@@ -166,9 +174,8 @@ viewAll.addEventListener('click', function(event){
             var viewAll = document.querySelector("#view-all")
             viewAll.setAttribute("style", "display: none")
 
-            //delete any existing content in the content page
-            for(var j=0; j < content.length; j++){
-                content.removeChild(content.firstChild)
+            while (content.firstChild) {
+              content.removeChild(content.firstChild);
             }
 
             //**generate html based off retrieved data**//
