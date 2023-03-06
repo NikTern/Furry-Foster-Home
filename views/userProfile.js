@@ -1,4 +1,3 @@
-const url = '/api/users/profile';
 const profileUsername = $('#username');
 const profileEmail = $('#email');
 const profilePetsAdopted = $('#pets-adopted');
@@ -21,10 +20,11 @@ const saveChangeBtn = $('#save-changes');
 
 
 const profilePageRender = async () => { 
-    const response = await fetch(url);
+  try {
+    const response = await fetch(`/api/users/${req.session.user_id}`);
     const userData = response.json();
-    const { username, email, first_name, last_name, gender, address, phone_number, currentPets } = userData;
-    profileUsername.val() = username;
+    const { email, first_name, last_name, gender, address, phone_number, currentPets } = userData;
+    profileUsername.val() = `${first_name} ${last_name}`;
     profileEmail.val() = email;
     profielFirstName.val() = first_name;
     profileLastName.val() = last_name;
@@ -32,6 +32,10 @@ const profilePageRender = async () => {
     profileAddress.val() = address;
     profilePhoneNumber.val() = phone_number;
     profileCurrentPets.val() = currentPets;
+  } catch (err) { 
+    document.location.replace("/404-page");
+  }
+    
 }
 
 

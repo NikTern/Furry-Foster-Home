@@ -3,6 +3,7 @@ const router = require("express").Router();
 const withAuth = require("../../utils/auth.js");
 const { UserProfile, Pets } = require("../../models");
 const bcrypt = require("bcrypt");
+const { time } = require("console");
 
 router.get("/login", (req, res) => {
   try {
@@ -10,7 +11,7 @@ router.get("/login", (req, res) => {
       res.redirect("/profile");
       return;
     }
-    res.sendFile(path.join(__dirname, "../../public/login.html"));
+    res.sendFile(path.join(__dirname, "../../public/html/login.html"));
   } catch (err) {
     res.status(400).json(err);
   }
@@ -29,18 +30,19 @@ router.post("/login", async (req, res) => {
     }
 
     //TODO: need to add checkPassword() into UserProfile model
-      const validPassword = await userData.checkPassword(req.body.password);
-      console.log(validPassword);
+    const validPassword = await userData.checkPassword(req.body.password);
+    console.log(validPassword);
     if (!validPassword) {
       res
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
-        return;
-        
+      return;
     }
     req.session.save(() => {
       req.session.user_id = userData.id;
+      req.session.user_email = userData.email;
       req.session.logged_in = true;
+      console.log(req.session);
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
@@ -54,7 +56,7 @@ router.get("/register", (req, res) => {
       res.redirect("/profile");
       return;
     }
-    res.sendFile(path.join(__dirname, "../../public/signup.html"));
+    res.sendFile(path.join(__dirname, "../../public/html/signup.html"));
   } catch (err) {
     res.status(400).json(err);
   }
@@ -73,6 +75,7 @@ router.post("/register", async (req, res) => {
     const userData = await UserProfile.create(newUser);
     req.session.save(() => {
       req.session.user_id = userData.id;
+      req.session.user_email = userData.email;
       req.session.logged_in = true;
       res.status(200).json(userData);
     });
@@ -81,24 +84,24 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const userData = await UserProfile.findAll();
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-router.get('/', async (req, res) => { 
-    try {
-      const userData = await UserProfile.findAll();
-      res.status(200).json(userData);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-})
 
-router.get('/:id', async (req, res) => { 
-    try {
-        const userData = await UserProfile.findByPk(req.params.id);
-        res.status(200).json(userData);
-    } catch (err) { 
-         res.status(500).json(err);
-    }
-})
+router.get("/:id", async (req, res) => {
+  try {
+    const userData = await UserProfile.findByPk(req.params.id);
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.get("/profile", withAuth, async (req, res) => {
   try {
