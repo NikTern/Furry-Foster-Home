@@ -28,7 +28,7 @@ categoryCards.forEach(categoryCard => {
   
             //create pet cards (<a> tags) here
             for(var i=0; i < data.length; i++){
-              if(data.breed_name === categoryCard.dataset.id){
+              if(data[i].category_id == categoryCard.dataset.id){
                 let card = document.createElement('a')
                 card.classList.add('pet-card')
        
@@ -90,20 +90,16 @@ function fetchPetData(id) {
       //pet name 
       let petName = document.createElement('h2')
       petName.textContent = data.pet_name //need to use correct property
-      console.log(`pet name is ${data.pet_name}`)
 
       //pet details        
       let petAge = document.createElement('p')
       petAge.textContent = data.Age
-      console.log(`pet age is ${data.Age}`)
   
       let petDescription = document.createElement('p')
       petDescription.textContent = data.Description
-      console.log(`pet description is ${data.Description}`)
   
       let petBreed = document.createElement('p')
       petBreed.textContent = data.breed_name
-      console.log(`pet breed is ${data.breed_name}`)
   
       let petCategory = document.createElement('p')
       petCategory.textContent = data.category_name
