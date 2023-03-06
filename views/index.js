@@ -16,8 +16,10 @@ categoryCards.forEach(categoryCard => {
         .then((data) => {
             console.log('Successful GET request:', data);
   
-            //hide the categories div
+            //hide the categories div and view all pets div
             categoriesDiv.setAttribute("style", "display: none")
+            var viewAll = document.querySelector("#view-all")
+            viewAll.setAttribute("style", "display: none")
   
             //delete any existing content in the content page
             for(var j=0; j < content.length; j++){
@@ -72,8 +74,10 @@ function fetchPetData(id) {
     .then((data) => {
       console.log('Successful GET request:', data);
   
-      // hide the categories div
-      categoriesDiv.setAttribute("style", "display: none");
+      //hide the categories div and view all pets div
+      categoriesDiv.setAttribute("style", "display: none")
+      var viewAll = document.querySelector("#view-all")
+      viewAll.setAttribute("style", "display: none")
   
       // delete any existing content in the content page
       while (content.firstChild) {
@@ -157,8 +161,10 @@ viewAll.addEventListener('click', function(event){
         .then((data) => {
             console.log('Successful GET request:', data);
 
-            //hide the categories div
+            //hide the categories div and view all pets div
             categoriesDiv.setAttribute("style", "display: none")
+            var viewAll = document.querySelector("#view-all")
+            viewAll.setAttribute("style", "display: none")
 
             //delete any existing content in the content page
             for(var j=0; j < content.length; j++){
@@ -220,3 +226,9 @@ viewAll.addEventListener('click', function(event){
     //       // ...
     //     });
     // });
+
+
+// //Code which fixes CORS error
+// const cors = require('cors');
+// router.use(cors());
+// //
