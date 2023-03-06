@@ -15,4 +15,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/404-page', (req, res) => { 
+  res.sendFile(path.join(__dirname, "../public/404.html"));
+})
+
 module.exports = router;
