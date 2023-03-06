@@ -9,7 +9,7 @@ const content = document.querySelector(".content") // content gets generated and
 
 //Function to generate details for a single pet using data from a get request (add to pet cards in event listener)
 function fetchPetData(id) {
-    fetch(`/api/pets/${id}`, {
+    fetch(`http://localhost:3001/api/pets/${id}`, {
         method: 'GET'
     })
     .then((res) => res.json())
@@ -86,12 +86,13 @@ function fetchPetData(id) {
   }
 
 //'View All Pets' button - Generate cards for all the pets using data from a get request
-const viewAll = document.querySelector("#view-all")
+const viewAll = document.querySelector("#view-all-btn")
 
 viewAll.addEventListener('click', function(event){
     event.preventDefault()
-    fetch('/api/pets', {
-        method: 'GET'
+    fetch('http://localhost:3001/api/pets', {
+        method: 'GET',
+        mode: 'cors'
         })
         .then((res) => res.json())
         .then((data) => {
@@ -118,7 +119,7 @@ viewAll.addEventListener('click', function(event){
         
                 //generate pet name
                 let petName = document.createElement('p')
-                petName.textContent(data[i].pet_name) 
+                petName.textContent = data[i].pet_name
                 
                 //add pet id to each <a> tag 
                 card.setAttribute('data-id', `data[i].id`)
@@ -139,3 +140,21 @@ viewAll.addEventListener('click', function(event){
             console.error('Error in GET request:', error);
         });        
 })
+
+
+// code for searchbar to bring up individual pets based on searched term (UNFINISHED)
+    // const searchpet = document.querySelector('#searchpet');
+    // searchpet.addEventListener('submit', function(event) {
+    //   event.preventDefault();
+
+    //   const searchQuery = document.querySelector('#search-query').value;
+
+    //   // Send request to server with searched pets
+    //   fetch(`/pets/${searchQuery}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       // Render search results on page
+    //       const resultsContainer = document.querySelector('#pets');
+    //       // ...
+    //     });
+    // });
