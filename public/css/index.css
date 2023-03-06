@@ -125,6 +125,8 @@ nav {
 
 .content{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .pet-card {
@@ -135,6 +137,7 @@ nav {
     margin-bottom: 5%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     text-decoration: none;
 }
@@ -148,6 +151,7 @@ nav {
     font-weight: bold;
     font-size: x-large;
     align-self: end;
+    padding-top: 1.5%;
 }
 
 .category-card{
