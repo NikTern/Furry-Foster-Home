@@ -1,4 +1,5 @@
 const path = require("path");
+const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const withAuth = require("../../utils/auth.js");
 const { UserProfile, Pets } = require("../../models");
@@ -96,16 +97,27 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/profile", withAuth, async (req, res) => {
+  console.log(1234567);
   try {
-    console.log('profile route1');
     const userData = await UserProfile.findByPk(req.session.user_id, {
-      attributes: { exclude: ["password"] },
       include: [{ model: Pets }],
+      attributes: {
+        exclude: ["password"],
+        include: [
+          [
+            // Use plain SQL to count the number of pets adopted
+            sequelize.literal(
+              "(SELECT COUNT(*) FROM pets WHERE pets.Adopted_by = userProfile.id)"
+            ),
+            "petsAdopted",
+          ],
+        ],
+      },
     });
-    console.log("profile route2");
     console.log(userData);
     res.status(200).json(userData);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

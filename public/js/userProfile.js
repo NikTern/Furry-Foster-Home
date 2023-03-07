@@ -26,9 +26,10 @@ const profilePageRender = async () => {
   try {
     const response = await fetch(`/api/users/profile`);
     const userData = await response.json();
-    const { email, first_name, last_name, gender, address, phone_number, currentPets } = userData;
+    const { email, first_name, last_name, gender, address, phone_number, currentPets ,petsAdopted} = userData;
     profileUsername.textContent = `${first_name} ${last_name}`;
     profileEmail.textContent = email;
+    profilePetsAdopted.textContent = petsAdopted;
     profielFirstName.textContent = first_name;
     profileLastName.textContent = last_name;
     profileGender.textContent = gender;
