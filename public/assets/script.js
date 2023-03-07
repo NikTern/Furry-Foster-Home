@@ -5,7 +5,7 @@ const user = document.querySelector('#user');
 const loginBtn = $('#login-btn');
 const signupBtn = $('#signup-btn');
 
-const homePageRender = async () => { 
+const navBarRender = async () => { 
     const session = await fetch('/api/users/status');
     const sessionData = await session.json();
     console.log(sessionData);
@@ -13,7 +13,7 @@ const homePageRender = async () => {
         loginBtn.hide();
         signupBtn.hide();
         console.log(sessionData.user_email);
-        user.textContent = `Hello, ${sessionData.user_email}`;
+        user.textContent = `${sessionData.user_email}`;
     }
 }
 
@@ -183,4 +183,4 @@ const profilePageRender = async () => {
 
 // profile.on('click', profilePageRender);
 
-homePageRender();
+navBarRender();
