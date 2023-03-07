@@ -49,7 +49,7 @@ const profilePageRender = async () => {
     editPhone.setAttribute("value", phone_number);
     editCurrentPets.setAttribute("value", currentPets);
   } catch (err) { 
-    // document.location.replace("../404.html");
+    document.location.replace("../404.html");
     // console.log(err);
   }
     
