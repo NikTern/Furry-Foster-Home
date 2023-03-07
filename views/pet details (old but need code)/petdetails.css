@@ -114,3 +114,21 @@ nav {
 
 
 }
+
+.searchpet button {
+    padding: 1%;
+    border-radius: 6px;
+    border-style: none;
+    box-sizing: border-box;
+    color: black;
+    background-color: #1b9f35);
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.searchpet button:hover,
+.searchpet button:focus {
+    background-color: #1ac23c;
+}

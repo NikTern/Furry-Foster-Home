@@ -26,5 +26,8 @@ const loginFormHandler = async (event) => {
 document
   .querySelector('.login-form')
   .addEventListener('click', loginFormHandler);
- 
 
+let signup = document.querySelector(".sign-up")
+signup.addEventListener("click", function(){
+	window.location.href = "signup.html"
+})
