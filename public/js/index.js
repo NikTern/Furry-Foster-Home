@@ -111,6 +111,7 @@ function fetchPetData(id) {
   
       let petBreed = document.createElement('p')
       petBreed.textContent = `Breed: ${data.breed.breed_name}`
+    
   
       let petCategory = document.createElement('p')
       petCategory.textContent = data.category_name
