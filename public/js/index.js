@@ -213,7 +213,23 @@ viewAll.addEventListener('click', function(event){
         });        
 })
 
+const user = document.querySelector("#user");
+const loginBtn = $("#login-btn");
+const signupBtn = $("#signup-btn");
 
+const navBarRender = async () => {
+  const session = await fetch("/api/users/status");
+  const sessionData = await session.json();
+  console.log(sessionData);
+  if (sessionData.logged_in) {
+    loginBtn.hide();
+    signupBtn.hide();
+    console.log(sessionData.user_email);
+    user.textContent = `${sessionData.user_email}`;
+  }
+};
+
+navBarRender()
 // code for searchbar to bring up individual pets based on searched term (UNFINISHED)
     // const searchpet = document.querySelector('#searchpet');
     // searchpet.addEventListener('submit', function(event) {
