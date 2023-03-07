@@ -5,10 +5,12 @@ homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
-//Grab necessary HTML elements
+//Searchbar
+const searchbar = document.querySelector("#search-query")
+
+//Grab necessary HTML elements for dynamic rendering
 const categoriesDiv = document.querySelector(".categories") // to hide and unhide
 const content = document.querySelector(".content") // content gets generated and deleted here
- 
 
 //Generate cards for a specific pet category using data from a get request
 categoryCards = document.querySelectorAll(".category-card")
