@@ -132,7 +132,9 @@ body {
     color:rgba(3, 175, 237, 255) !important;
 }
 
-
+#user-full-name{
+    font-weight: bold;
+}
 /* ================================== */
 
 * {
@@ -245,34 +247,8 @@ nav {
     background-color: #4085d5;
 }
 
-/* pet cards */
-.pets {
-    width: 100%;
+.user-logged-in {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-top: 2.5%;
-}
-
-.pet-card {
-    width: 22%;
-    height: auto;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    margin-bottom: 5%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    text-decoration: none;
-}
-
-.pet-card img {
-    width: 100%;
-    border-radius: 20px;
-}
-
-.pet-card p {
-    font-weight: bold;
-    font-size: large;
-    align-self: end;
+    justify-content: end;
+    padding-bottom: 2%;
 }

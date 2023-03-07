@@ -99,10 +99,13 @@ router.get("/", async (req, res) => {
 
 router.get("/profile", withAuth, async (req, res) => {
   try {
+    console.log('profile route1');
     const userData = await UserProfile.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [{ model: Pets }],
     });
+    console.log("profile route2");
+    console.log(userData);
     res.status(200).json(userData);
   } catch (err) {
     res.status(500).json(err);
@@ -110,6 +113,8 @@ router.get("/profile", withAuth, async (req, res) => {
 });
 
 router.put("/profile", withAuth, async (req, res) => {
+  console.log(req.session.user_id);
+  console.log(req.body);
   try {
     const userData = await UserProfile.update(req.body, {
       where: {
@@ -120,6 +125,7 @@ router.put("/profile", withAuth, async (req, res) => {
       res.status(404).json({ message: "No user with this id!" });
       return;
     }
+    console.log(userData);
     res.status(200).json(userData);
   } catch (err) {
     res.status(500).json(err);
