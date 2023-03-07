@@ -6,7 +6,8 @@ homeBtn.addEventListener("click", () => {
 });
 
 //Searchbar
-const searchbar = document.querySelector("#search-query")
+// const searchbar = document.querySelector("#search-query")
+// searchbar.addEventListener("submit", fetchPetData())
 
 //Grab necessary HTML elements for dynamic rendering
 const categoriesDiv = document.querySelector(".categories") // to hide and unhide
@@ -92,15 +93,15 @@ function fetchPetData(id) {
       }
   
       //**generate html based off retrieved data**//
-  
+
       //pet image
       let petImage = document.createElement('img')
-      petImage.setAttribute("src", `${data.Picture}`) // SET SRC LINK TO BE AMAZON LINK (which will be an object property? data[i].imglink?)
-      
+      petImage.setAttribute("src", `${data.Picture}`)
+      petImage.setAttribute("style", "width: 24rem; border-radius: 20px ; margin-bottom: 1.7%; ")
 
       //pet name 
       let petName = document.createElement('h2')
-      petName.textContent = data.pet_name //need to use correct property
+      petName.textContent = data.pet_name
 
       //pet details        
       let petAge = document.createElement('p')
@@ -126,14 +127,52 @@ function fetchPetData(id) {
   
       let petLocation = document.createElement('p')
       petLocation.textContent = `Location: ${data.Location}`
-  
+
+      document.querySelectorAll(".pet-details p").forEach(p => {
+        p.setAttribute("style", "padding-left: 5%; font-size: large; align-self: end;");
+      });
       //APPEND EVERYTHING
       let petDetailsDiv = document.createElement('div')
+      petDetailsDiv.classList.add('petDetailsDiv')
+      petDetailsDiv.setAttribute("style", "width: 100%; display: flex; flex-wrap: wrap; padding-top: 2.5%; justify-content: center; align-items: center");
       
       let petPhotoDiv = document.createElement('div')
+      petPhotoDiv.classList.add('petPhotoDiv')
+      petPhotoDiv.setAttribute("style", "padding-right: 5%;")
       petPhotoDiv.appendChild(petImage)
 
+      let infobox = document.createElement('div')
+      infobox.classList.add('infobox')
+      infobox.setAttribute("style", "display: flex; flex-direction: column; justify-content: center; align-items: center;")
+      
+      let adoptButton = document.createElement('button')
+      adoptButton.textContent = "Adopt!"
+      adoptButton.setAttribute("style", "padding: 2%; padding-left: 2.5%; padding-right: 2.5%; border-radius: 6px; border-style: none; box-sizing: border-box; color: black; background-color: #1ac23c; flex: 1; margin-left: 10px; margin-right: 10px; width: 10vh; font-size: large; font-weight: bold; align-text: center");
+      adoptButton.addEventListener("mouseover", function() {
+        adoptButton.style.backgroundColor = "#04e209ff";
+      });
+      adoptButton.addEventListener("mouseout", function() {
+        adoptButton.style.backgroundColor = "#1ac23c";
+      });
+      adoptButton.addEventListener("focus", function() {
+        adoptButton.style.backgroundColor = "#04e209ff";
+      });
+
+      let backButton = document.createElement("a")
+      backButton.href = "./index.html"
+      let backBtn = document.createElement('img');
+      backBtn.src = "./assets/images/back.png"
+      backBtn.setAttribute("style", "width: 58px; height: 58px")
+      backButton.appendChild(backBtn)
+
+      let backBtnDiv = document.createElement('div')
+      backBtnDiv.classList.add("backBtnDiv")
+      backBtnDiv.setAttribute("style", "height: 100%; display: flex ; align-items: start")
+      backBtnDiv.appendChild(backButton)
+
       let petTextDiv = document.createElement('div')
+      petTextDiv.classList.add('petTextDiv')
+      petTextDiv.setAttribute("style", "font-size: 1.2rem;")
       petTextDiv.appendChild(petName)
       petTextDiv.appendChild(petAge)
       petTextDiv.appendChild(petCategory)
@@ -144,8 +183,18 @@ function fetchPetData(id) {
       petTextDiv.appendChild(petCost)
       petTextDiv.appendChild(petLocation)
 
+      infobox.appendChild(petTextDiv)
+      infobox.appendChild(adoptButton)
+
+      let container = document.createElement('div')
+      container.setAttribute("style", "display: flex;")
+      container.appendChild(infobox)
+      container.appendChild(backBtnDiv)
+
       petDetailsDiv.appendChild(petPhotoDiv)
-      petDetailsDiv.appendChild(petTextDiv)
+      // petDetailsDiv.appendChild(infobox)
+      // petDetailsDiv.appendChild(backBtnDiv)
+      petDetailsDiv.appendChild(container)
       content.appendChild(petDetailsDiv)
     })
     .catch((error) => {
