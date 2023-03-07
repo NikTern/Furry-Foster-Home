@@ -175,7 +175,7 @@ function fetchPetData(id) {
 
       //add click event for adopt button
       const adoptModalHandler = async () => {
-        const sessionData = getSessionData();
+        const sessionData = await getSessionData();
         if (!sessionData.logged_in) {
           window.location.href = "/html/login.html";
         } else {
@@ -308,7 +308,8 @@ const getSessionData = async () => {
   return sessionData;
 }
 const navBarRender = async () => {
-  const sessionData = getSessionData();
+  const sessionData = await getSessionData();
+  console.log(sessionData);
   // const session = await fetch("/api/users/status");
   // const sessionData = await session.json();
   // console.log(sessionData);
