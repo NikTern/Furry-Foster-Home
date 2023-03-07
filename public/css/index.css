@@ -169,6 +169,16 @@ nav {
     margin-bottom: 2%;
 }
 
+#view-all-btn{
+    background-color: rgba(3,175,237,255);
+    border-color: rgba(3,175,237,255);
+}
+
+#search-btn{
+    background-color: rgba(3, 175, 237, 255);
+    border-color: rgba(3, 175, 237, 255);
+}
+
 /* =============navbar logged-in style================== */
 .user-logged-in{
     display: flex;

@@ -73,13 +73,13 @@ header {
     border-style: none;
     font-weight: bold;
     color: white;
-    background-color: rgb(114, 199, 255);
+    background-color: rgba(3, 175, 237, 255);
 }
 
 #login-btn:hover, #signup-btn:hover {
-  background-color: #4085d5;
+  background-color: rgba(3, 175, 237, 255);
 }
 
 .login-input:hover, .signup-input:hover {
-    border-color: #4085d5;
+    border-color: rgba(3, 175, 237, 255);
   }
