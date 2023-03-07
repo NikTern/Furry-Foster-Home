@@ -15,8 +15,10 @@ const signupFormHandler = async (event) => {
     gender = "male";
   } else if (document.getElementById("gender-female").checked) {
     gender = "female";
-  } else {
-    window.alert("Please select gender");
+  } 
+
+  if ((first_name == null || first_name == "") || (last_name == null || last_name == "") || (phone_number == null || phone_number == "") || (email == null || email == "") || (password == null || password == "") || (currentPets == null || currentPets == "") || (address == null || address == "") || (gender == null || gender == "")) {
+    alert("Please Fill In All Required Fields");
   }
 
   if (password !== pwRetype) {
