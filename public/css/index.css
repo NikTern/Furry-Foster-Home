@@ -168,3 +168,14 @@ nav {
     text-align: center;
     margin-bottom: 2%;
 }
+
+/* =============navbar logged-in style================== */
+.user-logged-in{
+    display: flex;
+        justify-content: end;
+        padding-bottom: 2%;
+}
+
+#partition{
+    color: gray;
+}
