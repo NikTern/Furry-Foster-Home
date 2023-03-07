@@ -51,6 +51,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
+
 router.get("/register", (req, res) => {
   try {
     if (req.session.logged_in) {
@@ -84,18 +94,6 @@ router.post("/register", async (req, res) => {
     res.status(400).json(err);
   }
 });
-
-router.get("/", async (req, res) => {
-  try {
-    const userData = await UserProfile.findAll();
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-
-
 
 router.get("/profile", withAuth, async (req, res) => {
   try {
@@ -133,19 +131,26 @@ router.put("/profile", withAuth, async (req, res) => {
 });
 
 router.get('/status', (req, res) => { 
-  console.log('====================');
-  console.log(req.session);
-  console.log("====================");
     res.json(req.session);
 })
 
-router.get("/:id", async (req, res) => {
-  try {
-    const userData = await UserProfile.findByPk(req.params.id);
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get("/", async (req, res) => {
+//   try {
+//     const userData = await UserProfile.findAll();
+//     res.status(200).json(userData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const userData = await UserProfile.findByPk(req.params.id);
+//     res.status(200).json(userData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

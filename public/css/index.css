@@ -175,3 +175,7 @@ nav {
         justify-content: end;
         padding-bottom: 2%;
 }
+
+#partition{
+    color: gray;
+}

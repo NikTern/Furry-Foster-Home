@@ -89,8 +89,10 @@ saveChangeBtn.addEventListener('click', editProfileHandler)
 profilePageRender();
 
 const user = document.querySelector("#user");
+const signOutBtn = document.querySelector("#sign-out");
 const loginBtn = $("#login-btn");
 const signupBtn = $("#signup-btn");
+const partition = document.querySelector("#partition");
 
 const navBarRender = async () => {
   const session = await fetch("/api/users/status");
@@ -101,7 +103,24 @@ const navBarRender = async () => {
     signupBtn.hide();
     console.log(sessionData.user_email);
     user.textContent = `${sessionData.user_email}`;
+    signOutBtn.textContent = "Sign out";
+    partition.textContent = " | ";
   }
 };
+
+const signOut = async () => {
+  const response = await fetch("/api/users/logout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    document.location.replace("/");
+  } else {
+    alert(response.statusText);
+  }
+};
+
+signOutBtn.addEventListener("click", signOut);
 
 navBarRender();
