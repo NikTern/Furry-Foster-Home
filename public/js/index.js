@@ -10,7 +10,7 @@ const searchbar = document.querySelector(".searchpet")
 const searchtext = document.querySelector("#search-query")
 searchbar.addEventListener("submit", function(event){
   event.preventDefault();
-  fetchPetByBreed(searchbar.value)
+  fetchPetByBreed(searchtext.value)
 })
 
 //Grab necessary HTML elements for dynamic rendering
