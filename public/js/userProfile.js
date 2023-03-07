@@ -7,6 +7,7 @@ const profileGender = document.querySelector('#gender');
 const profileAddress = document.querySelector('#address');
 const profilePhoneNumber = document.querySelector('#phone');
 const profileCurrentPets = document.querySelector('#current-pets');
+const profileAvatar = document.querySelector('#avatar');
 
 const profileModal = $('#exampleModal');
 const editFirstName = document.querySelector('#edit-first-name');
@@ -37,8 +38,10 @@ const profilePageRender = async () => {
     editFirstName.setAttribute('value', first_name);
     editLastName.setAttribute('value', last_name);
     if (gender === 'female') {
+      profileAvatar.setAttribute("src", "../assets/images/avatar-female.png");
       editGenderFemale.checked=true;
     } else { 
+      profileAvatar.setAttribute("src", "../assets/images/avatar-male.png");
       editGenderMale.checked=true;
     }
     editAddress.setAttribute("value", address);
@@ -93,6 +96,7 @@ const signOutBtn = document.querySelector("#sign-out");
 const loginBtn = $("#login-btn");
 const signupBtn = $("#signup-btn");
 const partition = document.querySelector("#partition");
+
 
 const navBarRender = async () => {
   const session = await fetch("/api/users/status");
