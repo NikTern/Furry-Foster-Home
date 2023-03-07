@@ -14,7 +14,17 @@ router.get('/', async (req, res) => {
               
               //TODO: MAY UPDATE THE COLUMN NAME AFTER DB CREATED
               isAdopted: false
-          }
+        },
+        include: [
+        {
+          model: Category,
+          attributes: ['category_name'],
+        },
+        {
+          model: Breed,
+          attributes:['breed_name'],
+        }
+      ],
       });
     res.json(petData);
 } catch (err) {
