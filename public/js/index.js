@@ -6,16 +6,19 @@ homeBtn.addEventListener("click", () => {
 });
 
 //Searchbar
-// const searchbar = document.querySelector("#search-query")
-// searchbar.addEventListener("submit", fetchPetData())
+const searchbar = document.querySelector(".searchpet")
+const searchtext = document.querySelector("#search-query")
+searchbar.addEventListener("submit", function(event){
+  event.preventDefault();
+  fetchPetByBreed(searchbar.value)
+})
 
 //Grab necessary HTML elements for dynamic rendering
 const categoriesDiv = document.querySelector(".categories") // to hide and unhide
 const content = document.querySelector(".content") // content gets generated and deleted here
 
-//Generate cards for a specific pet category using data from a get request
+//Generate cards for a specific pet CATEGORY using data from a get request
 categoryCards = document.querySelectorAll(".category-card")
-
 categoryCards.forEach(categoryCard => {
   categoryCard.addEventListener('click', function(event){
     event.preventDefault()
@@ -72,7 +75,7 @@ categoryCards.forEach(categoryCard => {
     })
   })
 
-//Function to generate details for a single pet using data from a get request
+//Function to generate card for a SINGLE PET using data from a get request
 //(used as an event listener added to generated pet cards to make them clickable)
 function fetchPetData(id) {
     fetch(`/api/pets/${id}`, {
@@ -199,15 +202,11 @@ function fetchPetData(id) {
     })
     .catch((error) => {
       console.error('Error in GET request:', error);
-    });
-    
-    //create back button
-            
+    });            
   }
 
-//'View All Pets' button - Generate cards for all the pets using data from a get request
+//'View All Pets' button - Generate cards for ALL PETS using data from a get request
 const viewAll = document.querySelector("#view-all-btn")
-
 viewAll.addEventListener('click', function(event){
     event.preventDefault()
     fetch('/api/pets/', {
@@ -255,14 +254,72 @@ viewAll.addEventListener('click', function(event){
                 card.appendChild(petName)
                 content.appendChild(card)
               }
-            
-            //create back button
-
         })
         .catch((error) => {
             console.error('Error in GET request:', error);
         });        
 })
+
+//Generate cards for a specific pet BREED using data from a get request (UNFINISHED)
+function fetchPetByBreed(breedname){
+  fetch('/api/pets/', {
+    method: 'GET'
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log('Successful GET request:', data);
+
+        //hide the categories div and view all pets div
+        categoriesDiv.setAttribute("style", "display: none")
+        var viewAll = document.querySelector("#view-all")
+        viewAll.setAttribute("style", "display: none")
+
+        while (content.firstChild) {
+          content.removeChild(content.firstChild);
+        }
+
+        //**generate html based off retrieved data**//
+
+        //create pet cards (<a> tags) here
+        let check = false
+        for(var i=0; i < data.length; i++){
+          if(data[i].breed.breed_name == breedname){
+            check = true
+            let card = document.createElement('a')
+            card.classList.add('pet-card')
+   
+            //generate pet image
+            let petImage = document.createElement('img')
+            petImage.setAttribute("src", `${data[i].Picture}`)
+    
+            //generate pet name
+            let petName = document.createElement('p')
+            petName.textContent = data[i].pet_name
+            
+            //add pet id to each <a> tag 
+            card.setAttribute('data-id', `${data[i].id}`)
+
+            //add event listener to clear content and generate individual pet details
+            card.addEventListener("click", () => {
+              let petId = card.dataset.id
+              fetchPetData(petId)
+            })
+            
+            //append newly generated html elements to the webpage
+            card.appendChild(petImage)
+            card.appendChild(petName)
+            content.appendChild(card)
+          }          
+        }
+        return check
+    })
+    .catch((error) => {
+        console.error('Error in GET request:', error);
+    });        
+}
+
+
+
 
 const user = document.querySelector("#user");
 const signOutBtn = document.querySelector('#sign-out');
@@ -301,19 +358,3 @@ signOutBtn.addEventListener("click", signOut);
 
 
 navBarRender();
-// code for searchbar to bring up individual pets based on searched term (UNFINISHED)
-    // const searchpet = document.querySelector('#searchpet');
-    // searchpet.addEventListener('submit', function(event) {
-    //   event.preventDefault();
-
-    //   const searchQuery = document.querySelector('#search-query').value;
-
-    //   // Send request to server with searched pets
-    //   fetch(`/pets/${searchQuery}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       // Render search results on page
-    //       const resultsContainer = document.querySelector('#pets');
-    //       // ...
-    //     });
-    // });
