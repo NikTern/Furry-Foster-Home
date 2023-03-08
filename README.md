@@ -12,6 +12,8 @@
   - [Contributing](#contributing)
  
   ## Usage
+  Deployed application link: https://furryfosterhome.herokuapp.com/
+
   On the homepage, you can click on the "View all pets" button to show all animals available for adoption. Click on the animal category image to browse a specific type of animal. Clicking on the pet image will take you to the pet detail page where the adopt option is available for logged in users. If user is not logged in, they will be redirected to the login page when "adopt" button is clicked. 
   Users can choose to sign up instead if they don't already have an account. Once the user is logged in, they can view their personal details by clicking on their email address displayed at the top right corner of the page. This will direct the page to the user profile page where users can view and edit their personal information.  
   Below is a screenshot of the deployed webpage:
