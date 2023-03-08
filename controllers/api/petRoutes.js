@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.put('/:id', withAuth, async (res, req) => { 
+router.post('/:id', withAuth, async (res, req) => { 
     try {
         const updatePet = await Pets.update(
           {

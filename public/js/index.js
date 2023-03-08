@@ -178,13 +178,17 @@ function fetchPetData(id) {
 
       //add click event for adopt button
       const adoptModalHandler = async () => {
-        const sessionData = await getSessionData();
-        if (!sessionData.logged_in) {
-          window.location.href = "/html/login.html";
-        } else {
+        const response = await fetch(`/api/pets/${id}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          console.log(response);
           //TODO: ADD CODE FOR TRIGGER MODAL
-          //modalname=document.querySelector('#modal');
-          //modalname.modal("show");
+          //   //modalname=document.querySelector('#modal');
+          //   //modalname.modal("show");
+        } else {
+          window.location.href("/404.html");
         }
       };
 
