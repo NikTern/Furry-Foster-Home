@@ -190,3 +190,8 @@ nav {
 #partition{
     color: gray;
 }
+
+.modal-backToHome-btn{
+    background-color: rgba(3, 175, 237, 255);
+    border-color: rgba(3, 175, 237, 255);
+}
