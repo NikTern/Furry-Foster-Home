@@ -32,6 +32,15 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  try {
+    const petData = await Pets.findAll({});
+    res.json(petData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const petData = await Pets.findByPk(req.params.id, {
@@ -58,7 +67,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/:id', withAuth, async (res, req) => { 
+router.post('/:id', withAuth, async (req, res) => { 
+  console.log(12345678);
     try {
         const updatePet = await Pets.update(
           {
@@ -70,7 +80,7 @@ router.post('/:id', withAuth, async (res, req) => {
           },
           {
             where: {
-              id: res.params.id,
+              id: req.params.id,
             },
           }
         );
