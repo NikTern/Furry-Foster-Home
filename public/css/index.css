@@ -195,3 +195,9 @@ nav {
     background-color: rgba(3, 175, 237, 255);
     border-color: rgba(3, 175, 237, 255);
 }
+
+.modal-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
