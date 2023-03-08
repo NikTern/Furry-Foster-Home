@@ -145,12 +145,12 @@ function fetchPetData(id) {
       petDetailsDiv.classList.add("petDetailsDiv");
       petDetailsDiv.setAttribute(
         "style",
-        "width: 100%; display: flex; flex-wrap: wrap; padding-top: 2.5%; justify-content: center; align-items: center"
+        "width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center"
       );
 
       let petPhotoDiv = document.createElement("div");
       petPhotoDiv.classList.add("petPhotoDiv");
-      petPhotoDiv.setAttribute("style", "padding-right: 5%;");
+      petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 5%; width: 30%");
       petPhotoDiv.appendChild(petImage);
 
       let infobox = document.createElement("div");
@@ -164,7 +164,7 @@ function fetchPetData(id) {
       adoptButton.textContent = "Adopt!";
       adoptButton.setAttribute(
         "style",
-        "padding: 2%; padding-left: 2.5%; padding-right: 2.5%; border-radius: 6px; border-style: none; box-sizing: border-box; color: black; background-color: #1ac23c; flex: 1; margin-left: 10px; margin-right: 10px; width: 10vh; font-size: large; font-weight: bold; align-text: center"
+        "text-align: center; display: flex; justify-content: center; padding: 2%; padding-left: 2.5%; padding-right: 2.5%; border-radius: 6px; border-style: none; box-sizing: border-box; color: black; background-color: #1ac23c; flex: 1; margin-left: 10px; margin-right: 10px; font-size: large; font-weight: bold; align-text: center"
       );
       adoptButton.addEventListener("mouseover", function () {
         adoptButton.style.backgroundColor = "#04e209ff";
@@ -229,15 +229,60 @@ function fetchPetData(id) {
       infobox.appendChild(adoptButton);
 
       let container = document.createElement("div");
-      container.setAttribute("style", "display: flex;");
+      container.classList.add('container')
+      container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0; margin-bottom: 4%");
       container.appendChild(infobox);
       container.appendChild(backBtnDiv);
 
       petDetailsDiv.appendChild(petPhotoDiv);
-      // petDetailsDiv.appendChild(infobox)
-      // petDetailsDiv.appendChild(backBtnDiv)
       petDetailsDiv.appendChild(container);
       content.appendChild(petDetailsDiv);
+
+      // Define a media query
+      const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+      // Define a function to handle the media query
+      function handleMediaQuery(mediaQuery) {
+        if (mediaQuery.matches) {
+          // If the screen width is below 768px
+          petPhotoDiv.style.cssText = "width: 100%; padding-right: 0; display: flex; justify-content: center;"
+          container.style.width = '90%';
+        } else {
+          // If the screen width is above 768px
+          petPhotoDiv.style.width = '30%';
+          petPhotoDiv.style.paddingRight = '5%';
+          container.style.width = '100%';
+        }
+      }
+
+      // Call the function once to set the initial state
+      handleMediaQuery(mediaQuery);
+
+      // Add a listener to call the function whenever the screen size changes
+      mediaQuery.addEventListener("change", handleMediaQuery);
+
+
+      const mq2 = window.matchMedia("(max-width: 500px)");
+
+      function handleSmallScreen2(mq2) {
+        if (mq2.matches) {
+          // execute changes for screens with a maximum width of 500 pixels
+          petPhotoDiv.style.cssText = "width: 100%; padding-right: 0; display: flex; justify-content: center;"
+          container.style.width = '90%';
+
+          petImage.setAttribute(
+            "style",
+            "width: 15rem; border-radius: 20px ; margin-bottom: 4%; "
+          );
+          petTextDiv.setAttribute("style", "font-size: 0.8rem")
+          petName.setAttribute("style", "font-size: 1.2rem")
+        }
+      }
+
+      handleSmallScreen2(mq2); // call the function once to check the initial state
+
+      mq2.addEventListener("change", handleSmallScreen2); // add the listener function to the media query
+
     })
     .catch((error) => {
       console.error('Error in GET request:', error);
