@@ -14,10 +14,29 @@ router.get('/', async (req, res) => {
               
               //TODO: MAY UPDATE THE COLUMN NAME AFTER DB CREATED
               isAdopted: false
-          }
+        },
+        include: [
+        {
+          model: Category,
+          attributes: ['category_name'],
+        },
+        {
+          model: Breed,
+          attributes:['breed_name'],
+        }
+      ],
       });
     res.json(petData);
 } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/all", async (req, res) => {
+  try {
+    const petData = await Pets.findAll({});
+    res.json(petData);
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -48,7 +67,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.put('/:id', withAuth, async (res, req) => { 
+router.post('/:id', withAuth, async (req, res) => { 
+  console.log(12345678);
     try {
         const updatePet = await Pets.update(
           {
@@ -60,7 +80,7 @@ router.put('/:id', withAuth, async (res, req) => {
           },
           {
             where: {
-              id: res.params.id,
+              id: req.params.id,
             },
           }
         );
