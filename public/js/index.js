@@ -407,7 +407,7 @@ function fetchPetByBreed(breedname){
         //create pet cards (<a> tags) here
         let check = false
         for(var i=0; i < data.length; i++){
-          if(data[i].breed.breed_name == breedname){
+          if(data[i].breed.breed_name.toLowerCase() == breedname.toLowerCase()){
             check = true
             let card = document.createElement('a')
             card.classList.add('pet-card')
@@ -433,9 +433,17 @@ function fetchPetByBreed(breedname){
             card.appendChild(petImage)
             card.appendChild(petName)
             content.appendChild(card)
-          }          
+          }         
         }
-        return check
+        if (!check){
+            let noResults = document.createElement('h2')
+            noResults.textContent = "Breed not found! Please try again, or return home."
+            content.appendChild(noResults)
+            return
+        }
+        else{
+          return
+        }
     })
     .catch((error) => {
         console.error('Error in GET request:', error);
