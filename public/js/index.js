@@ -150,7 +150,9 @@ function fetchPetData(id) {
 
       let petPhotoDiv = document.createElement("div");
       petPhotoDiv.classList.add("petPhotoDiv");
-      petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 5%; width: 30%");
+      // petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 5%; width: 30%");
+
+      petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 2.5%"); //TESTING
       petPhotoDiv.appendChild(petImage);
 
       let infobox = document.createElement("div");
@@ -261,7 +263,8 @@ function fetchPetData(id) {
 
       let container = document.createElement("div");
       container.classList.add('container')
-      container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0; margin-bottom: 4%");
+      // container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0; margin-bottom: 4%");
+      container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0;"); //TESTING
       container.appendChild(infobox);
       container.appendChild(backBtnDiv);
 
@@ -280,9 +283,11 @@ function fetchPetData(id) {
           container.style.width = '90%';
         } else {
           // If the screen width is above 768px
-          petPhotoDiv.style.width = '30%';
-          petPhotoDiv.style.paddingRight = '5%';
-          container.style.width = '100%';
+          // petPhotoDiv.style.width = '30%';
+          // petPhotoDiv.style.paddingRight = '5%';
+          petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 2.5%");
+          // container.style.width = '100%';
+          container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0;")
         }
       }
 
@@ -293,20 +298,24 @@ function fetchPetData(id) {
       mediaQuery.addEventListener("change", handleMediaQuery);
 
 
+      // Define a media query
       const mq2 = window.matchMedia("(max-width: 500px)");
-
+      
+      // Define a function to handle the media query
       function handleSmallScreen2(mq2) {
         if (mq2.matches) {
           // execute changes for screens with a maximum width of 500 pixels
           petPhotoDiv.style.cssText = "width: 100%; padding-right: 0; display: flex; justify-content: center;"
           container.style.width = '90%';
 
-          petImage.setAttribute(
-            "style",
-            "width: 15rem; border-radius: 20px ; margin-bottom: 4%; "
-          );
+          petImage.setAttribute("style", "width: 15rem; border-radius: 20px ; margin-bottom: 4%;");
           petTextDiv.setAttribute("style", "font-size: 0.8rem")
           petName.setAttribute("style", "font-size: 1.2rem")
+        }
+        else{
+          petImage.setAttribute("style", "width: 24rem; border-radius: 20px ; margin-bottom: 1.7%;");
+          petPhotoDiv.setAttribute("style", "margin-left: 2%; padding-right: 2.5%");
+          container.setAttribute("style", "display: flex; width: 60%; margin-left: 0; margin-right: 0;")
         }
       }
 
