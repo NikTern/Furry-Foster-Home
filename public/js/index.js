@@ -145,7 +145,7 @@ function fetchPetData(id) {
       petDetailsDiv.classList.add("petDetailsDiv");
       petDetailsDiv.setAttribute(
         "style",
-        "width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center"
+        "width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; margin-bottom: 2%"
       );
 
       let petPhotoDiv = document.createElement("div");
