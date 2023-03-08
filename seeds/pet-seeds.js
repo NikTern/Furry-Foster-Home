@@ -153,7 +153,7 @@ const petData = [
 
     },
     {
-        breed_id: 1,
+        breed_id: 11,
         category_id: 1,
         pet_name: "Milo",
         Size:"Large",
