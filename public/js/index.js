@@ -177,25 +177,56 @@ function fetchPetData(id) {
       });
 
       //add click event for adopt button
-      const adoptModalHandler = async () => {
-        console.log(id);
+      const adoptBtnHandler = async () => {
         const response = await fetch(`/api/pets/${id}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });
-        console.log(response); 
         if (response.url!== "http://localhost:3001/login") {
           console.log("adopted!");
-          //TODO: ADD CODE FOR TRIGGER MODAL
-          //   //modalname=document.querySelector('#modal');
-          //   //modalname.modal("show");
+          //if user is logged in then add the modal html to the page
+          const mainContainer = document.querySelector('.main-container');
+          const renderAdoptedModal = `<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close modal-close-btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for your adoption! Our admin team will get contact with you shortly.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-backToHome-btn" data-dismiss="modal">Back to Home Page</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+          mainContainer.insertAdjacentHTML(
+            "beforeend",
+            renderAdoptedModal
+          );
+            //show the modal
+          const adoptModal = $('.modal');
+          adoptModal.modal('show');
+          const backToHome = document.querySelector('.modal-backToHome-btn');
+          backToHome.addEventListener('click', () => { 
+            document.location.replace("/");
+          })
+          const closeBtn = document.querySelector('.modal-close-btn');
+          closeBtn.addEventListener('click', () => { 
+            console.log(closeBtn);
+            adoptButton.textContent = "Adopted!";
+            adoptButton.disabled = true;
+          })
         } else {
-          // console.log(9999999);
           document.location.href = "/login";
         }
       };
 
-      adoptButton.addEventListener("click", adoptModalHandler);
+      adoptButton.addEventListener("click", adoptBtnHandler);
 
       let backButton = document.createElement("a");
       backButton.href = "./index.html";
