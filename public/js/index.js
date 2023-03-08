@@ -175,17 +175,20 @@ function fetchPetData(id) {
 
       //add click event for adopt button
       const adoptModalHandler = async () => {
+        console.log(id);
         const response = await fetch(`/api/pets/${id}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });
-        if (response.ok) {
-          console.log(response);
+        console.log(response); 
+        if (response.url!== "http://localhost:3001/login") {
+          console.log("adopted!");
           //TODO: ADD CODE FOR TRIGGER MODAL
           //   //modalname=document.querySelector('#modal');
           //   //modalname.modal("show");
         } else {
-          window.location.href("/404.html");
+          // console.log(9999999);
+          document.location.href = "/login";
         }
       };
 
@@ -306,17 +309,17 @@ const loginBtn = $("#login-btn");
 const signupBtn = $("#signup-btn");
 const partition = document.querySelector('#partition');
 
-const getSessionData = async () => { 
+// const getSessionData = async () => { 
+//   const session = await fetch("/api/users/status");
+//   const sessionData = await session.json();
+//   return sessionData;
+// }
+const navBarRender = async () => {
+  // const sessionData = await getSessionData();
+  // console.log(sessionData);
   const session = await fetch("/api/users/status");
   const sessionData = await session.json();
-  return sessionData;
-}
-const navBarRender = async () => {
-  const sessionData = await getSessionData();
   console.log(sessionData);
-  // const session = await fetch("/api/users/status");
-  // const sessionData = await session.json();
-  // console.log(sessionData);
   if (sessionData.logged_in) {
     loginBtn.hide();
     signupBtn.hide();

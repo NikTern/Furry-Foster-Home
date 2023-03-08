@@ -143,6 +143,7 @@ router.put("/profile", withAuth, async (req, res) => {
 });
 
 router.get('/status', (req, res) => { 
+  console.log(req.session);
     res.json(req.session);
 })
 

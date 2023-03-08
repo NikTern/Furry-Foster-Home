@@ -128,4 +128,11 @@ const signOut = async () => {
 
 signOutBtn.addEventListener("click", signOut);
 
+const homeBtn = document.querySelector('.home-btn');
+const homeBtnHandler = () => {
+  window.location.href = '/index.html';
+};
+
+homeBtn.addEventListener('click', homeBtnHandler);
+
 navBarRender();
