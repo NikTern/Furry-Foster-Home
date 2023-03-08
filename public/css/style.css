@@ -10,6 +10,19 @@ header {
     margin-right: 1%;
 }
 
+a{
+    text-align: center;
+}
+
+img{
+    width: 30vh;
+}
+
+.formdiv{
+    display: flex;
+    justify-content: center;
+}
+
 .logo {
     display: inline
     /* flex-basis: 15%; */
@@ -48,6 +61,7 @@ header {
     border-width: 5px;
     border-radius: 10px;
     border-color: #0751A8;
+    min-width: 100px;
 }
 
 .login-textbox, .signup-textbox {
