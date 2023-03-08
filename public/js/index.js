@@ -198,6 +198,11 @@ function fetchPetData(id) {
         </button>
       </div>
       <div class="modal-body">
+    <lord-icon
+        src="https://cdn.lordicon.com/tqywkdcz.json"
+        trigger="loop"
+          style="width:150px;height:150px">
+    </lord-icon>
         <p>Thank you for your adoption! Our admin team will get contact with you shortly.</p>
       </div>
       <div class="modal-footer">
