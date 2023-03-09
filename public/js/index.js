@@ -184,7 +184,13 @@ function fetchPetData(id) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });
-        if (response.url!== "http://localhost:3001/login") {
+        const petData = await response.json();
+        console.log(petData);
+        if(petData.message) {
+          console.log(response,222);
+          document.location.href = "/html/login.html";
+        }else{
+          console.log(response,111);
           console.log("adopted!");
           //if user is logged in then add the modal html to the page
           const mainContainer = document.querySelector('.main-container');
@@ -228,9 +234,7 @@ function fetchPetData(id) {
             adoptButton.textContent = "Adopted!";
             adoptButton.disabled = true;
           })
-        } else {
-          document.location.href = "/login";
-        }
+        } 
       };
 
       adoptButton.addEventListener("click", adoptBtnHandler);
