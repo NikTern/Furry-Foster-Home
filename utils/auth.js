@@ -4,7 +4,8 @@ const withAuth = (req, res, next) => {
   if (!req.session.logged_in) {
     console.log(123);
   //  res.sendFile(path.join(__dirname, "../public/html/login.html"));
-    res.redirect("/login");
+    // res.redirect("/login");
+    res.json({ "message":"not logged in"})
   } else {
     console.log(456);
     next();
